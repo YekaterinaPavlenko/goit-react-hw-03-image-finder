@@ -1,6 +1,6 @@
-import React from "react";
-import gis from "./ImageGalleryItem.module.css";
-import PropTypes from "prop-types";
+import React from 'react';
+import gis from './ImageGalleryItem.module.css';
+import PropTypes from 'prop-types';
 
 const ImageGalleryItem = ({ image, tags }) => {
   //   console.log(image);
@@ -13,6 +13,6 @@ const ImageGalleryItem = ({ image, tags }) => {
 ImageGalleryItem.propTypes = {
   image: PropTypes.string.isRequired,
   tags: PropTypes.string.isRequired,
-  //   getGotoForModal: PropTypes.func.isRequired,
+  //   getFotoForModal: PropTypes.func.isRequired,
 };
 export default ImageGalleryItem;
