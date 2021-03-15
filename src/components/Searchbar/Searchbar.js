@@ -1,24 +1,27 @@
-import React, { Component } from "react";
-import sbs from "./Searchbar.module.css";
-// import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import sbs from './Searchbar.module.css';
+import PropTypes from 'prop-types';
+// import Notifications from '../Notifications/Notifications';
 
 class Searchbar extends Component {
   state = {
-    query: "",
+    query: '',
+    // noQuery: '',
   };
-  handleChange = (e) => {
-    // const { name, value } = e.currentTarget;
-    // console.log(e.currentTarget.value);
+  handleChange = e => {
     this.setState({ query: e.currentTarget.value });
   };
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state.query);
-    this.props.onSubmit({ ...this.state });
+    // console.log(this.state.query);
+    const { query } = this.state;
+    this.props.onSubmit({ query });
+    //  query !== '' &&
     // this.reset();
   };
   render() {
     const { query } = this.state;
+    // console.log(query);
     return (
       <header className={sbs.Searchbar}>
         <form className={sbs.SearchForm} onSubmit={this.handleSubmit}>
@@ -36,9 +39,12 @@ class Searchbar extends Component {
             <span className={sbs.button_label}>Search</span>
           </button>
         </form>
+        {/* <Notifications searchQuery={query} /> */}
       </header>
     );
   }
 }
-
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 export default Searchbar;
