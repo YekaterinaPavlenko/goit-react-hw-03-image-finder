@@ -14,8 +14,6 @@ class ImageGallery extends Component {
     });
   };
   getImgForModal = ({ elem }) => {
-    // e.preventDefault();
-    // console.log(elem);
     if (elem) {
       this.toggleModal();
       this.setState({
@@ -31,7 +29,6 @@ class ImageGallery extends Component {
     return (
       <ul className={igs.ImageGallery}>
         {gallery.map(item => {
-          // console.log(item);
           return (
             <ImageGalleryItem
               key={item.id}
@@ -55,6 +52,5 @@ ImageGallery.propTypes = {
       id: PropTypes.number.isRequired,
     }),
   ).isRequired,
-  //   deleteContact: PropTypes.func.isRequired,
 };
 export default ImageGallery;

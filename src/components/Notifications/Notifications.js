@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 const Notifications = ({ fetchLength, galleryLength, searchQuery, error }) => {
-  // console.log(searchQuery);
-  // console.log(error);
   if (error) {
     // console.log(error);
     return <p>Oops! Something wrong! Request error!</p>;

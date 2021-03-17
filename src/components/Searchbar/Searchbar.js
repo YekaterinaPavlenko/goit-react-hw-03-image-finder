@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
 import sbs from './Searchbar.module.css';
 import PropTypes from 'prop-types';
-// import Notifications from '../Notifications/Notifications';
 
 class Searchbar extends Component {
   state = {
     query: '',
-    // noQuery: '',
   };
   handleChange = e => {
     this.setState({ query: e.currentTarget.value });
   };
   handleSubmit = e => {
     e.preventDefault();
-    // console.log(this.state.query);
     const { query } = this.state;
     this.props.onSubmit({ query });
     this.setState({ query: '' });
-    //  query !== '' &&
-    // this.reset();
   };
   render() {
     const { query } = this.state;
@@ -40,7 +35,6 @@ class Searchbar extends Component {
             <span className={sbs.button_label}>Search</span>
           </button>
         </form>
-        {/* <Notifications searchQuery={query} /> */}
       </header>
     );
   }

@@ -22,7 +22,7 @@ class App extends Component {
     // console.log('я обновился');
 
     const { query, page } = this.state;
-    if (query !== prevState.query) {
+    if (query !== prevState.query && query !== '') {
       this.fetchImagesByQuery(query);
     } else if (query === prevState.query && page !== prevState.page) {
       this.fetchImagesByQuery(query);
@@ -30,6 +30,8 @@ class App extends Component {
   }
 
   getQueryByForm = ({ query }) => {
+    // console.log(query);
+    this.setState({ query: '', page: 1, gallery: [], fetchLength: 0 });
     this.setState({ query: query, page: 1, gallery: [] });
   };
 
@@ -67,7 +69,6 @@ class App extends Component {
   render() {
     const { gallery, fetchLength, isLoading, query, error } = this.state;
     // console.log(fetchLength);
-    // const visibleContacts = this.getVisibleContacts();
     return (
       <div className="App">
         <h1>Search image</h1>
@@ -79,7 +80,7 @@ class App extends Component {
             color="#3f51b5"
             height={100}
             width={100}
-            timeout={3000} //3 secs
+            timeout={3000}
           />
         )}
         {fetchLength === 12 && !isLoading && (
