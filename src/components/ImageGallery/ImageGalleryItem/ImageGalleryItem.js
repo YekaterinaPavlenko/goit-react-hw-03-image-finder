@@ -2,17 +2,30 @@ import React from 'react';
 import gis from './ImageGalleryItem.module.css';
 import PropTypes from 'prop-types';
 
-const ImageGalleryItem = ({ image, tags }) => {
-  //   console.log(image);
+const ImageGalleryItem = ({ elem, getImgForModal }) => {
+  // console.log(elem);
+  const { webformatURL, tags } = elem;
+  // console.log(largeImageURL);
   return (
     <li className={gis.ImageGalleryItem}>
-      <img src={image} alt={tags} className={gis.image} />
+      <img
+        src={webformatURL}
+        alt={tags}
+        className={gis.image}
+        onClick={() => getImgForModal({ elem })}
+      />
     </li>
   );
 };
 ImageGalleryItem.propTypes = {
-  image: PropTypes.string.isRequired,
-  tags: PropTypes.string.isRequired,
-  //   getFotoForModal: PropTypes.func.isRequired,
+  elem: PropTypes.shape({
+    webformatURL: PropTypes.string.isRequired,
+    tags: PropTypes.string.isRequired,
+  }).isRequired,
+
+  getImgForModal: PropTypes.func.isRequired,
 };
 export default ImageGalleryItem;
+// image = { webformatURL };
+// tags = { tags };
+// largeImageUR = { largeImageURL };

@@ -2,18 +2,49 @@ import React, { Component } from 'react';
 import igs from './ImageGallery.module.css';
 import PropTypes from 'prop-types';
 import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
-
+import Modal from '../Modal/Modal';
 class ImageGallery extends Component {
-  state = {};
+  state = {
+    elem: '',
+    showModal: false,
+  };
+  toggleModal = () => {
+    this.setState({
+      showModal: !this.state.showModal,
+    });
+  };
+  getImgForModal = ({ elem }) => {
+    // e.preventDefault();
+    // console.log(elem);
+    if (elem) {
+      this.toggleModal();
+      this.setState({
+        elem,
+      });
+    }
+  };
   render() {
+    const { showModal, elem } = this.state;
     const { gallery } = this.props;
+    // console.log(elem);
+    const { tags, largeImageURL } = elem;
     return (
       <ul className={igs.ImageGallery}>
         {gallery.map(item => {
-          //   console.log(item);
-          const { id, webformatURL, tags } = item;
-          return <ImageGalleryItem key={id} image={webformatURL} tags={tags} />;
+          // console.log(item);
+          return (
+            <ImageGalleryItem
+              key={item.id}
+              elem={item}
+              getImgForModal={this.getImgForModal}
+            />
+          );
         })}
+        {showModal && (
+          <Modal hideModal={this.toggleModal}>
+            <img src={largeImageURL} alt={tags} />
+          </Modal>
+        )}
       </ul>
     );
   }
