@@ -6,6 +6,7 @@ import Searchbar from './components/Searchbar/Searchbar';
 import fetchImages from './services/pixabayApi';
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import Button from './components/Button/Button';
+import Notifications from './components/Notifications/Notifications';
 
 class App extends Component {
   state = {
@@ -14,32 +15,12 @@ class App extends Component {
     gallery: [],
     fetchLength: null,
     isLoading: false,
-  };
-  getQueryByForm = ({ query }) => {
-    console.log(query);
-    this.setState({ query: query, page: 1, gallery: [] });
-  };
-  setNewPage = e => {
-    e.preventDefault();
-    const { page } = this.state;
-    console.log(page);
-    this.setState(prevState => ({
-      page: prevState.page + 1,
-    }));
+    error: false,
   };
 
-  // componentDidMount() {
-  //   console.log('я родился');
-  //   // console.log(query);
-  //   const { query } = this.state;
-  //   if (query) {
-  //     this.fetchImages(query);
-  //   }
-  // }
   componentDidUpdate(prevProps, prevState) {
-    console.log('я обновился');
-    // console.log(prevState);
-    // console.log(this.state);
+    // console.log('я обновился');
+
     const { query, page } = this.state;
     if (query !== prevState.query) {
       this.fetchImagesByQuery(query);
@@ -48,41 +29,32 @@ class App extends Component {
     }
   }
 
+  getQueryByForm = ({ query }) => {
+    this.setState({ query: query, page: 1, gallery: [] });
+  };
+
+  setNewPage = e => {
+    e.preventDefault();
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
+  };
+
   fetchImagesByQuery = (prevProps, prevState) => {
     const { query, page } = this.state;
-    // console.log(query);
-    // console.log(page);
-    // this.setState({ isLoading: true });
 
-    // console.log(query);
-    // fetchImages(query, page)
-    //   .then(result => {
-    //     console.log(query);
-    //     console.log(result);
-    //     this.setState({ gallery: [...result], fetchLength: result.length });
-    //   })
-    //   .catch(error => console.log(error))
-    //   .finally(() => {
-    //  this.setState({ isLoading: false });
-    //     window.scrollTo({
-    //       top: document.documentElement.scrollHeight,
-    //       behavior: 'smooth',
-    //     });
-    //   });
-    //  if (query === prevState.query && page !== prevState.page) {
-    console.log(query);
-    console.log(page);
     this.setState({ isLoading: true });
     fetchImages(query, page)
       .then(result => {
-        console.log(query);
-        console.log(result);
+        // console.log(result);
         this.setState(prevState => ({
           gallery: [...prevState.gallery, ...result],
           fetchLength: result.length,
         }));
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        this.setState({ error: true, gallery: [] });
+      })
       .finally(() => {
         this.setState({ isLoading: false });
         window.scrollTo({
@@ -93,7 +65,7 @@ class App extends Component {
     // }
   };
   render() {
-    const { gallery, fetchLength, isLoading } = this.state;
+    const { gallery, fetchLength, isLoading, query, error } = this.state;
     console.log(fetchLength);
     // const visibleContacts = this.getVisibleContacts();
     return (
@@ -113,6 +85,13 @@ class App extends Component {
         {fetchLength === 12 && !isLoading && (
           <Button getNewPage={this.setNewPage} />
         )}
+
+        <Notifications
+          fetchLength={fetchLength}
+          galleryLength={gallery.length}
+          searchQuery={query}
+          error={error}
+        />
       </div>
     );
   }
