@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 const Notifications = ({ fetchLength, galleryLength, searchQuery, error }) => {
-  console.log(searchQuery);
-  console.log(error);
+  // console.log(searchQuery);
+  // console.log(error);
   if (error) {
-    console.log(error);
+    // console.log(error);
     return <p>Oops! Something wrong! Request error!</p>;
   } else if (!error) {
     if (!searchQuery) {
@@ -18,5 +19,17 @@ const Notifications = ({ fetchLength, galleryLength, searchQuery, error }) => {
   }
 
   return <p></p>;
+};
+Notifications.defaultProps = {
+  fetchLength: 0,
+  galleryLength: 0,
+  searchQuery: '',
+  error: false,
+};
+Notifications.propTypes = {
+  fetchLength: PropTypes.number,
+  galleryLength: PropTypes.number,
+  searchQuery: PropTypes.string,
+  error: PropTypes.bool,
 };
 export default Notifications;

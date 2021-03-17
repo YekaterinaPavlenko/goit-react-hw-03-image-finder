@@ -24,6 +24,5 @@ class Modal extends Component {
 }
 Modal.propTypes = {
   hideModal: PropTypes.func.isRequired,
-  //   largeImageUrl: PropTypes.string.isRequired,
 };
 export default Modal;

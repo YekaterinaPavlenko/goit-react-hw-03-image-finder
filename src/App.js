@@ -53,7 +53,7 @@ class App extends Component {
         }));
       })
       .catch(error => {
-        this.setState({ error: true, gallery: [] });
+        this.setState({ error: true });
       })
       .finally(() => {
         this.setState({ isLoading: false });
@@ -66,7 +66,7 @@ class App extends Component {
   };
   render() {
     const { gallery, fetchLength, isLoading, query, error } = this.state;
-    console.log(fetchLength);
+    // console.log(fetchLength);
     // const visibleContacts = this.getVisibleContacts();
     return (
       <div className="App">
